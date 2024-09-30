@@ -23,6 +23,7 @@ import players.rmhc.RMHCPlayer;
 import players.simple.FirstActionPlayer;
 import players.simple.OSLAPlayer;
 import players.simple.RandomPlayer;
+import players.simple.SuperOSLAPlayer;
 import utilities.Pair;
 import utilities.Utils;
 
@@ -828,17 +829,19 @@ public class Game {
      * and then run this class.
      */
     public static void main(String[] args) {
-        String gameType = Utils.getArg(args, "game", "Pandemic");
+        String gameType = Utils.getArg(args, "game", "Uno");
         boolean useGUI = Utils.getArg(args, "gui", true);
-        int turnPause = Utils.getArg(args, "turnPause", 0);
+        int turnPause = Utils.getArg(args, "turnPause", 300);
         long seed = Utils.getArg(args, "seed", System.currentTimeMillis());
         ActionController ac = new ActionController();
 
         /* Set up players for the game */
         ArrayList<AbstractPlayer> players = new ArrayList<>();
+        //players.add(new HumanGUIPlayer(ac));
         players.add(new RandomPlayer());
-        players.add(new RandomPlayer());
+        //players.add(new RandomPlayer());
         players.add(new BasicMCTSPlayer());
+        //players.add(new OSLAPlayer());
 
 //        RMHCParams params = new RMHCParams();
 //        params.horizon = 15;
@@ -860,13 +863,13 @@ public class Game {
         String gameParams = null;
 
         /* Run! */
-        runOne(GameType.valueOf(gameType), gameParams, players, seed, false, null, useGUI ? ac : null, turnPause);
+        //runOne(GameType.valueOf(gameType), gameParams, players, seed, false, null, useGUI ? ac : null, turnPause);
 
         /* Run multiple games */
 //        ArrayList<GameType> games = new ArrayList<>();
 //        games.add(Connect4);
 //        runMany(games, players, 100L, 5, false, false, null, turnPause);
-//        runMany(new ArrayList<GameType>() {{add(Uno);}}, players, 100L, 100, false, false, null, turnPause);
+        runMany(new ArrayList<GameType>() {{add(TicTacToe);add(Connect4);add(DotsAndBoxes);}}, players, 100L, 2, false, false, null, turnPause);
     }
 
 }
