@@ -1,0 +1,85 @@
+Game: TicTacToe, Players: 2, Mode: EXHAUSTIVE, TotalGames: 996, GamesPerMatchup: 83
+Alpha calculations using Delta Ordinal
+Alpha: 10.0
+	1.000	BasicMCTS
+	0.000	FirstAction
+	0.000	osla
+	0.000	Random
+
+Transition matrix for alpha = 10.0
+1.000	0.000	0.000	0.000	
+0.999	0.000	0.001	0.000	
+1.000	0.000	0.000	0.000	
+0.984	0.001	0.015	0.000	
+B matrix for alpha = 10.0
+4.965	1.000	1.016	0.984	
+1.000	0.998	0.999	0.983	
+1.016	0.999	1.000	0.984	
+0.984	0.983	0.984	0.968	
+The following agents cluster together, and may be considered equivalent: 
+	Cluster for FirstAction
+		FirstAction
+		osla
+		Random
+
+Alpha calculations using Win Rate
+Alpha: 10.0
+	1.000	BasicMCTS
+	0.000	FirstAction
+	0.000	osla
+	0.000	Random
+
+Transition matrix for alpha = 10.0
+1.000	0.000	0.000	0.000	
+0.999	0.000	0.001	0.000	
+1.000	0.000	0.000	0.000	
+0.984	0.001	0.015	0.000	
+B matrix for alpha = 10.0
+4.965	1.000	1.016	0.984	
+1.000	0.998	0.999	0.983	
+1.016	0.999	1.000	0.984	
+0.984	0.983	0.984	0.968	
+The following agents cluster together, and may be considered equivalent: 
+	Cluster for FirstAction
+		FirstAction
+		osla
+		Random
+
+BasicMCTS got 490.00 points. BasicMCTS won 48.6% of the 996 games of the tournament. BasicMCTS won 97.2% of the 498 games it played during the tournament.
+BasicMCTS won 98.8% of the 166 games against FirstAction.
+BasicMCTS won 100.0% of the 166 games against osla.
+BasicMCTS won 92.8% of the 166 games against Random.
+
+FirstAction got 161.00 points. FirstAction won 15.7% of the 996 games of the tournament. FirstAction won 31.3% of the 498 games it played during the tournament.
+FirstAction won 0.0% of the 166 games against BasicMCTS.
+FirstAction won 35.5% of the 166 games against osla.
+FirstAction won 58.4% of the 166 games against Random.
+
+osla got 231.50 points. osla won 23.2% of the 996 games of the tournament. osla won 46.4% of the 498 games it played during the tournament.
+osla won 0.0% of the 166 games against BasicMCTS.
+osla won 64.5% of the 166 games against FirstAction.
+osla won 74.7% of the 166 games against Random.
+
+Random got 113.50 points. Random won 10.4% of the 996 games of the tournament. Random won 20.9% of the 498 games it played during the tournament.
+Random won 1.2% of the 166 games against BasicMCTS.
+Random won 36.7% of the 166 games against FirstAction.
+Random won 24.7% of the 166 games against osla.
+
+---- Ranking ---- (+/- are standard errors on the mean calculated using a Normal approximation) 
+BasicMCTS: Win rate 0.98 +/- 0.004	Mean Ordinal 1.00 +/- 0.00
+osla: Win rate 0.46 +/- 0.022	Mean Ordinal 1.53 +/- 0.02
+FirstAction: Win rate 0.32 +/- 0.021	Mean Ordinal 1.67 +/- 0.02
+Random: Win rate 0.23 +/- 0.018	Mean Ordinal 1.75 +/- 0.02
+
+Alpha-rank by Win Rate
+	BasicMCTS                     	1.00
+	Random                        	0.00
+	FirstAction                   	0.00
+	osla                          	0.00
+
+Alpha-rank by Ordinal Position
+	BasicMCTS                     	1.00
+	Random                        	0.00
+	FirstAction                   	0.00
+	osla                          	0.00
+
