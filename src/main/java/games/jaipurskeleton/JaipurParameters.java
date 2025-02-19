@@ -32,9 +32,20 @@ public class JaipurParameters extends AbstractParameters {
         put(4, new Integer[]{4,4,5,5,6,6});
         put(5, new Integer[]{8,8,9,10,10});
     }};
+    Map<JaipurCard.GoodType, Integer[]> goodTokensProgression = new HashMap<JaipurCard.GoodType, Integer[]>() {{
+        put(JaipurCard.GoodType.Diamonds, new Integer[]{5, 5, 5, 7, 7});
+        put(JaipurCard.GoodType.Gold, new Integer[]{5, 5, 5, 6, 6});
+        put(JaipurCard.GoodType.Silver, new Integer[]{5, 5, 5, 5, 5});
+        put(JaipurCard.GoodType.Cloth, new Integer[]{1, 1, 2, 2, 3, 3, 5});
+        put(JaipurCard.GoodType.Spice, new Integer[]{1, 1, 2, 2, 3, 3, 5});
+        put(JaipurCard.GoodType.Leather, new Integer[]{1, 1, 1, 1, 1, 1, 2, 3, 4});
+    }};
+    //Map<JaipurCard.GoodType, Integer> maxSellQuantities = new HashMap<>();
 
     int nPointsMostCamels = 5;
     int nGoodTokensEmptyRoundEnd = 3;
+    int nRoundsWinForGameWin = 2;
+    int maxHandSize = 7;
 
     public JaipurParameters() {
         super();
@@ -48,8 +59,14 @@ public class JaipurParameters extends AbstractParameters {
         for (int n: jaipurParameters.getBonusTokensAvailable().keySet()) {
             this.bonusTokensAvailable.put(n, jaipurParameters.getBonusTokensAvailable().get(n).clone());
         }
+        this.goodTokensProgression = new HashMap<>();
+        for (JaipurCard.GoodType gt : jaipurParameters.getGoodTokensProgression().keySet()) {
+            this.goodTokensProgression.put(gt, jaipurParameters.getGoodTokensProgression().get(gt).clone());
+        }
         this.nPointsMostCamels = jaipurParameters.getNPointsMostCamels();
         this.nGoodTokensEmptyRoundEnd = jaipurParameters.getNGoodTokensEmptyGameEnd();
+        this.nRoundsWinForGameWin = jaipurParameters.getNRoundsWinForGameWin();
+        this.maxHandSize = jaipurParameters.getMaxHandSize();
     }
 
     public Map<JaipurCard.GoodType, Integer> getGoodNCardsMinimumSell() {
@@ -60,6 +77,8 @@ public class JaipurParameters extends AbstractParameters {
         return bonusTokensAvailable;
     }
 
+    public Map<JaipurCard.GoodType, Integer[]> getGoodTokensProgression() {return goodTokensProgression; }
+
     public int getNPointsMostCamels() {
         return nPointsMostCamels;
     }
@@ -68,6 +87,8 @@ public class JaipurParameters extends AbstractParameters {
         return nGoodTokensEmptyRoundEnd;
     }
 
+    public int getNRoundsWinForGameWin() { return nRoundsWinForGameWin; }
+    public int getMaxHandSize() { return maxHandSize; }
     @Override
     protected AbstractParameters _copy() {
         return new JaipurParameters(this);
@@ -78,11 +99,16 @@ public class JaipurParameters extends AbstractParameters {
         if (this == o) return true;
         if (!(o instanceof JaipurParameters that)) return false;
         if (!super.equals(o)) return false;
-        return nPointsMostCamels == that.nPointsMostCamels && nGoodTokensEmptyRoundEnd == that.nGoodTokensEmptyRoundEnd && Objects.equals(goodNCardsMinimumSell, that.goodNCardsMinimumSell) && Objects.equals(bonusTokensAvailable, that.bonusTokensAvailable);
+        return  maxHandSize ==that.maxHandSize
+                && nPointsMostCamels == that.nPointsMostCamels
+                && nGoodTokensEmptyRoundEnd == that.nGoodTokensEmptyRoundEnd
+                && nRoundsWinForGameWin == that.nRoundsWinForGameWin
+                && Objects.equals(goodNCardsMinimumSell, that.goodNCardsMinimumSell) && Objects.equals(bonusTokensAvailable, that.bonusTokensAvailable)
+                && Objects.equals(goodTokensProgression, that.goodTokensProgression);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), goodNCardsMinimumSell, bonusTokensAvailable, nPointsMostCamels, nGoodTokensEmptyRoundEnd);
+        return Objects.hash(super.hashCode(), maxHandSize, bonusTokensAvailable, nPointsMostCamels, nGoodTokensEmptyRoundEnd, nRoundsWinForGameWin, goodTokensProgression);
     }
 }

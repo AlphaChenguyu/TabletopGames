@@ -833,14 +833,14 @@ public class Game {
         // 1. Set up the players for the game.
         ArrayList<AbstractPlayer> players = new ArrayList<>();
         players.add(new RandomPlayer());
-        players.add(new RandomPlayer());
+        //players.add(new RandomPlayer());
 
-//        RMHCParams params = new RMHCParams();
-//        params.horizon = 15;
-//        params.discountFactor = 0.99;
-//        params.heuristic = AbstractGameState::getHeuristicScore;
-//        AbstractPlayer rmhcPlayer = new RMHCPlayer(params);
-//        players.add(rmhcPlayer);
+        RMHCParams params = new RMHCParams();
+        params.horizon = 15;
+        params.discountFactor = 0.99;
+        params.heuristic = AbstractGameState::getHeuristicScore;
+        AbstractPlayer rmhcPlayer = new RMHCPlayer(params);
+        players.add(rmhcPlayer);
 
 //        MCTSParams params = new MCTSParams();
 //        players.add(new MCTSPlayer(params));

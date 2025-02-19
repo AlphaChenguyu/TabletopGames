@@ -49,7 +49,17 @@ public class TakeCards extends AbstractAction {
                 // TODO 1: Remove all camels from the market
                 // TODO 1: Refill market with cards from the draw deck, to recquried market size
                 // TODO 1: If the draw deck becomes empty when trying to draw a new card, set `triggerRoundEnd` boolean flag to true
+                int camelsInMarket = jgs.getMarket().get(JaipurCard.GoodType.Camel).getValue();
+                jgs.getPlayerHerds().get(jgs.getCurrentPlayer()).increment(camelsInMarket);
+                jgs.getMarket().get(JaipurCard.GoodType.Camel).setValue(0);
+                while (jgs.getDrawDeck().getSize()>0) {
+                    JaipurCard drawnCard = jgs.getDrawDeck().draw();
+                    jgs.getMarket().get(drawnCard.goodType).increment(1);
+                }
 
+                if (jgs.getDrawDeck().getSize()>0) {
+                    triggerRoundEnd = true;
+                }
                 return true;
 
             } else if (howMany == 1) {
@@ -59,7 +69,17 @@ public class TakeCards extends AbstractAction {
                 // TODO 2: Reduce the number of cards in the market of this type by 1
                 // TODO 2: Draw a new card from the draw deck (jgs.getDrawDeck().draw()) and increment the corresponding type in the market by 1
                 // TODO 2: If the draw deck becomes empty when trying to draw a new card, set `triggerRoundEnd` boolean flag to true
+                jgs.getPlayerHands().get(jgs.getCurrentPlayer()).get(goodType).increment(1);
+                jgs.getMarket().get(goodType).decrement(1);
 
+                if (jgs.getDrawDeck().getSize() > 0) {
+                    JaipurCard drawnCard = jgs.getDrawDeck().draw();
+                    jgs.getMarket().get(drawnCard.goodType).increment(1);
+                }
+
+                if (jgs.getDrawDeck().getSize() == 0) {
+                    triggerRoundEnd = true;
+                }
                 return true;
             }
         }
