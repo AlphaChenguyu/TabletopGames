@@ -52,13 +52,14 @@ public class TakeCards extends AbstractAction {
                 int camelsInMarket = jgs.getMarket().get(JaipurCard.GoodType.Camel).getValue();
                 jgs.getPlayerHerds().get(jgs.getCurrentPlayer()).increment(camelsInMarket);
                 jgs.getMarket().get(JaipurCard.GoodType.Camel).setValue(0);
-                while (jgs.getDrawDeck().getSize()>0) {
-                    JaipurCard drawnCard = jgs.getDrawDeck().draw();
-                    jgs.getMarket().get(drawnCard.goodType).increment(1);
-                }
-
-                if (jgs.getDrawDeck().getSize()>0) {
-                    triggerRoundEnd = true;
+                for (int i = 0; i < camelsInMarket; i++) {
+                    if (jgs.getDrawDeck().getSize() > 0) {
+                        JaipurCard drawnCard = jgs.getDrawDeck().draw();
+                        jgs.getMarket().get(drawnCard.goodType).increment(1);
+                    } else {
+                        triggerRoundEnd = true;
+                        break;
+                    }
                 }
                 return true;
 
