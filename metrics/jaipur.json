@@ -5,6 +5,7 @@
       {"class": "games.jaipurskeleton.stats.JaipurMetrics$RoundScoreDifference" },
       {"class": "games.jaipurskeleton.stats.JaipurMetrics$PurchaseFromMarket" },
       {"class": "games.jaipurskeleton.stats.JaipurMetrics$PurchaseFromMarketTot" },
+      {"class":  "games.jaipurskeleton.stats.JaipurMetrics$CamelCollection"},
       {"class": "evaluation.metrics.GameMetrics$FinalScore" },
       {"class": "evaluation.metrics.GameMetrics$Actions" }
     ]
