@@ -122,6 +122,10 @@ public class JaipurForwardModel extends StandardForwardModel {
             JaipurCard card = new JaipurCard(JaipurCard.GoodType.Camel);
             gs.drawDeck.add(card);
         }
+//        for (int i = 0; i < 6; i++) {   // 6 Pearl cards
+//            JaipurCard card = new JaipurCard(Pearl);
+//            gs.drawDeck.add(card);
+//        }
         gs.drawDeck.shuffle(r);
 
         // Deal N cards to each player

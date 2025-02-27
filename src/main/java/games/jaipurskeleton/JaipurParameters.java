@@ -19,6 +19,7 @@ import java.util.Objects;
  * automatic game parameter optimisation tools in the framework.</p>
  */
 public class JaipurParameters extends AbstractParameters {
+    //public boolean enablePearl = true;
     Map<JaipurCard.GoodType, Integer> goodNCardsMinimumSell = new HashMap<JaipurCard.GoodType, Integer>() {{
         put(JaipurCard.GoodType.Diamonds, 2);
         put(JaipurCard.GoodType.Gold, 2);
@@ -26,6 +27,9 @@ public class JaipurParameters extends AbstractParameters {
         put(JaipurCard.GoodType.Cloth, 1);
         put(JaipurCard.GoodType.Spice, 1);
         put(JaipurCard.GoodType.Leather, 1);
+//        if(enablePearl){
+//            put(JaipurCard.GoodType.Pearl, 2);
+//        }
     }};
     Map<Integer, Integer[]> bonusTokensAvailable = new HashMap<Integer, Integer[]>() {{
         put(3, new Integer[]{1,1,2,2,2,3,3});
@@ -39,6 +43,9 @@ public class JaipurParameters extends AbstractParameters {
         put(JaipurCard.GoodType.Cloth, new Integer[]{1, 1, 2, 2, 3, 3, 5});
         put(JaipurCard.GoodType.Spice, new Integer[]{1, 1, 2, 2, 3, 3, 5});
         put(JaipurCard.GoodType.Leather, new Integer[]{1, 1, 1, 1, 1, 1, 2, 3, 4});
+//        if(enablePearl){
+//            put(JaipurCard.GoodType.Pearl, new Integer[]{4, 7, 11, 16, 22});
+//        }
     }};
     //Map<JaipurCard.GoodType, Integer> maxSellQuantities = new HashMap<>();
 
@@ -50,10 +57,10 @@ public class JaipurParameters extends AbstractParameters {
     public JaipurParameters() {
         super();
     }
-
     // Copy constructor
     private JaipurParameters(JaipurParameters jaipurParameters) {
         super();
+        //this.enablePearl = jaipurParameters.enablePearl;
         this.goodNCardsMinimumSell = new HashMap<>(jaipurParameters.getGoodNCardsMinimumSell());
         this.bonusTokensAvailable = new HashMap<>();
         for (int n: jaipurParameters.getBonusTokensAvailable().keySet()) {
@@ -99,7 +106,7 @@ public class JaipurParameters extends AbstractParameters {
         if (this == o) return true;
         if (!(o instanceof JaipurParameters that)) return false;
         if (!super.equals(o)) return false;
-        return  maxHandSize ==that.maxHandSize
+        return   maxHandSize ==that.maxHandSize
                 && nPointsMostCamels == that.nPointsMostCamels
                 && nGoodTokensEmptyRoundEnd == that.nGoodTokensEmptyRoundEnd
                 && nRoundsWinForGameWin == that.nRoundsWinForGameWin

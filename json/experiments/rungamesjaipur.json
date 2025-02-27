@@ -2,7 +2,7 @@
   "game": "Jaipur",
   "selfPlay": false,
   "nPlayers": 2,
-  "matchups": 10,
+  "matchups": 100,
   "listener": "metrics/jaipur.json",
   "verbose": true
 }
