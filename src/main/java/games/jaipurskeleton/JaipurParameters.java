@@ -3,11 +3,12 @@ package games.jaipurskeleton;
 import core.AbstractGameState;
 import core.AbstractParameters;
 import games.jaipurskeleton.components.JaipurCard;
+import core.Game;
+import games.GameType;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
+import evaluation.optimisation.TunableParameters;
 /**
  * <p>This class should hold a series of variables representing game parameters (e.g. number of cards dealt to players,
  * maximum number of rounds in the game etc.). These parameters should be used everywhere in the code instead of
@@ -18,7 +19,7 @@ import java.util.Objects;
  * <p>The class can optionally extend from {@link evaluation.optimisation.TunableParameters} instead, which allows to use
  * automatic game parameter optimisation tools in the framework.</p>
  */
-public class JaipurParameters extends AbstractParameters {
+public class JaipurParameters extends TunableParameters {
     //public boolean enablePearl = true;
     Map<JaipurCard.GoodType, Integer> goodNCardsMinimumSell = new HashMap<JaipurCard.GoodType, Integer>() {{
         put(JaipurCard.GoodType.Diamonds, 2);
@@ -54,13 +55,23 @@ public class JaipurParameters extends AbstractParameters {
     int nRoundsWinForGameWin = 2;
     int maxHandSize = 7;
 
-    public JaipurParameters() {
-        super();
-    }
+//    public JaipurParameters() {
+//        super();
+//    }
     // Copy constructor
-    private JaipurParameters(JaipurParameters jaipurParameters) {
+    public JaipurParameters(JaipurParameters jaipurParameters) {
         super();
         //this.enablePearl = jaipurParameters.enablePearl;
+
+        addTunableParameter("nPointsMostCamels", nPointsMostCamels, Arrays.asList(0, 2, 5, 7, 10));
+        for (JaipurCard.GoodType gt : goodNCardsMinimumSell.keySet()) {
+            addTunableParameter(gt.name() + " minSell", goodNCardsMinimumSell.get(gt), Arrays.asList(1, 2, 3, 4, 5));
+        }
+        addTunableParameter("nGoodTokensEmptyRoundEnd", 3, Arrays.asList(2, 3));
+        addTunableParameter("nRoundsWinForGameWin", 2, Arrays.asList(2, 3));
+        addTunableParameter("maxHandSize", 7, Arrays.asList( 6, 7));
+        _reset();
+
         this.goodNCardsMinimumSell = new HashMap<>(jaipurParameters.getGoodNCardsMinimumSell());
         this.bonusTokensAvailable = new HashMap<>();
         for (int n: jaipurParameters.getBonusTokensAvailable().keySet()) {
@@ -79,28 +90,23 @@ public class JaipurParameters extends AbstractParameters {
     public Map<JaipurCard.GoodType, Integer> getGoodNCardsMinimumSell() {
         return goodNCardsMinimumSell;
     }
-
     public Map<Integer, Integer[]> getBonusTokensAvailable() {
         return bonusTokensAvailable;
     }
-
     public Map<JaipurCard.GoodType, Integer[]> getGoodTokensProgression() {return goodTokensProgression; }
-
     public int getNPointsMostCamels() {
         return nPointsMostCamels;
     }
-
     public int getNGoodTokensEmptyGameEnd() {
         return nGoodTokensEmptyRoundEnd;
     }
-
     public int getNRoundsWinForGameWin() { return nRoundsWinForGameWin; }
     public int getMaxHandSize() { return maxHandSize; }
+
     @Override
     protected AbstractParameters _copy() {
         return new JaipurParameters(this);
     }
-
     @Override
     public boolean _equals(Object o) {
         if (this == o) return true;
@@ -113,9 +119,31 @@ public class JaipurParameters extends AbstractParameters {
                 && Objects.equals(goodNCardsMinimumSell, that.goodNCardsMinimumSell) && Objects.equals(bonusTokensAvailable, that.bonusTokensAvailable)
                 && Objects.equals(goodTokensProgression, that.goodTokensProgression);
     }
-
+    @Override
+    public void _reset() {
+        nPointsMostCamels = (int) getParameterValue("nPointsMostCamels");
+        goodNCardsMinimumSell.replaceAll((gt, v) -> (Integer) getParameterValue(gt.name() + " minSell"));
+        nGoodTokensEmptyRoundEnd = (int) getParameterValue("nGoodTokensEmptyRoundEnd");
+        nRoundsWinForGameWin = (int) getParameterValue("nRoundsWinForGameWin");
+        maxHandSize = (int) getParameterValue("maxHandSize");
+    }
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), maxHandSize, bonusTokensAvailable, nPointsMostCamels, nGoodTokensEmptyRoundEnd, nRoundsWinForGameWin, goodTokensProgression);
+    }
+    @Override
+    public Object instantiate() {
+        return new Game(GameType.Jaipur, new JaipurForwardModel(), new
+                JaipurGameState(this, GameType.Jaipur.getMinPlayers()));
+    }
+    @Override
+    public String toString() {
+        return "JaipurParameters{" +
+                "goodNCardsMinimumSell=" + goodNCardsMinimumSell +
+                ", nPointsMostCamels=" + Objects.toString(getParameterValue("nPointsMostCamels"), "N/A") +
+                ", nGoodTokensEmptyRoundEnd=" + Objects.toString(getParameterValue("nGoodTokensEmptyRoundEnd"), "N/A") +
+                ", nRoundsWinForGameWin=" + Objects.toString(getParameterValue("nRoundsWinForGameWin"), "N/A") +
+                ", maxHandSize=" + Objects.toString(getParameterValue("maxHandSize"), "N/A") +
+                '}';
     }
 }
